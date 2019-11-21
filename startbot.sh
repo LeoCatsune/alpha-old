@@ -1,0 +1,1 @@
+node . | tee latest.log
