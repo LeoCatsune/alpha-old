@@ -10,3 +10,13 @@ Download this repo using `git`, then install using `npm`
 ~/alpha-bot-js $ npm i
 ~/alpha-bot-js $ node index.js
 ```
+
+# Help and Support
+You can contact me through any of the below methods.
+
+Discord: Leopardnose#0157
+Delta Community: [Join](https://discord.gg/nAsWCfn)
+
+# See Something Wrong?
+Post it in the [Issues Tab](https://https://github.com/NullPointDev/alpha-bot-js/issues)
+or contact me above on discord.
