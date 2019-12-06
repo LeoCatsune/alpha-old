@@ -11,6 +11,7 @@
     "leo-profanity": "^1.2.6",
     "node-fetch": "^2.6.0",
     "opusscript": "0.0.7",
+    "solenolyrics": "^5.0.0",
     "trello": "^0.9.1",
     "ytdl-core": "^0.29.5"
   },
