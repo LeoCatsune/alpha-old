@@ -2,6 +2,7 @@ const { RichEmbed } = require("discord.js");
 const { m } = require("../../botconfig.json");
 const { cyan } = require("../../colours.json");
 var snl = require("solenolyrics");
+const moment = require("moment");
 
 module.exports = {
   config: {
@@ -15,14 +16,29 @@ module.exports = {
 
   run: async (bot, message, args) => {
     if (!args[0]) return message.reply("Please provide a search query!");
+
+    var verbose = false;
+    if (args[0] == "/v" || args[0] == "-v") {
+      args.shift();
+      verbose = true;
+    }
+
     var req = args.join(" ");
 
     var msg = await message.channel.send("Please Wait...");
+
+    var qstart = moment()
+      .utc()
+      .format("x");
 
     var ttl = await snl.requestTitleFor(req);
     var aut = await snl.requestAuthorFor(req);
     var lyr = await snl.requestLyricsFor(req);
     var img = await snl.requestIconFor(req);
+
+    var qend = moment()
+      .utc()
+      .format("x");
 
     var lines = lyr.split("\n");
 
@@ -63,6 +79,10 @@ module.exports = {
       outblocks.push(linebuffer);
     }
 
+    var parseEnd = moment()
+      .utc()
+      .format("x");
+
     var embed = new RichEmbed()
       .setAuthor(`${aut}: ${ttl}`, img)
       .setColor(cyan)
@@ -72,10 +92,22 @@ module.exports = {
       embed.addField(`[${i + 1}/${outblocks.length}]`, outblocks[i]);
     }
 
+    if (verbose) {
+      embed.addField("Query Timestamps", `${qstart} - ${qend}`);
+      embed.addField("Parser Timestamps", `${qend} - ${parseEnd}`);
+    }
+
     msg.edit(embed).catch(e => {
-      msg.edit(
-        ":warning: Something went wrong, contact the developer for help."
-      );
+      if (verbose == true) {
+        msg.edit(
+          ":warning: Something went wrong, contact the developer for help. " +
+            `\`\`\`${e}\`\`\``
+        );
+      } else {
+        msg.edit(
+          ":warning: Something went wrong, contact the developer for help."
+        );
+      }
     });
   }
 };
