@@ -72,6 +72,10 @@ module.exports = {
       embed.addField(`[${i + 1}/${outblocks.length}]`, outblocks[i]);
     }
 
-    msg.edit(embed);
+    msg.edit(embed).catch(e => {
+      msg.edit(
+        ":warning: Something went wrong, contact the developer for help."
+      );
+    });
   }
 };
