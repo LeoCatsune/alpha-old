@@ -1,6 +1,6 @@
 {
   "name": "alpha-bot-js",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "A Multipurpose Discord.js Bot.",
   "main": "index.js",
   "dependencies": {
@@ -9,8 +9,10 @@
     "ffmpeg": "0.0.4",
     "inspirational-quotes": "^1.0.8",
     "leo-profanity": "^1.2.6",
+    "moment": "^2.24.0",
     "node-fetch": "^2.6.0",
     "opusscript": "0.0.7",
+    "solenolyrics": "^5.0.0",
     "trello": "^0.9.1",
     "ytdl-core": "^0.29.5"
   },
@@ -18,6 +20,6 @@
   "scripts": {
     "test": "cls&node index.js"
   },
-  "author": "nullpoint-devs",
-  "license": "ISC"
+  "author": "nullpointdev",
+  "license": "MIT"
 }
