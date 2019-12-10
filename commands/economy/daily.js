@@ -26,7 +26,7 @@ module.exports = {
       userData[sender.id].money = 1000;
     }
     if (!userData[sender.id].lastDaily) {
-      userData[sender.id].lastDaily = "Not Yet Claimed";
+      userData[sender.id].lastDaily = "";
     }
 
     // Save Changes
@@ -37,15 +37,46 @@ module.exports = {
     var cancollect = false;
     let ld = userData[sender.id].lastDaily;
 
-    if (ld != moment().format("L")) {
-      userData[sender.id].lastDaily = moment().format("L");
+    if (ld == "") {
+      userData[sender.id].lastDaily = moment()
+        .utc()
+        .format();
       userData[sender.id].money += 500;
       message.channel.send({
         embed: {
           title: "Bank",
           color: 0xf1c40f,
           description:
-            "You Claimed your Daily reward.\n`500₪` has been added to your account."
+            "You Claimed your **first** Daily reward.\n`500₪` has been added to your account."
+        }
+      });
+      // Save Changes
+      fs.writeFile("db/userdata.json", JSON.stringify(userData), err => {
+        if (err) console.error(err);
+      });
+      return;
+    }
+
+    let nd = moment(ld)
+      .add(1, "day")
+      .utc()
+      .format();
+    let ct = moment()
+      .utc()
+      .format();
+    let cr = moment(ct).isSameOrAfter(nd);
+
+    if (cr) {
+      userData[sender.id].lastDaily = moment()
+        .utc()
+        .format();
+      userData[sender.id].money += 250;
+      message.channel.send({
+        embed: {
+          title: "Bank",
+          color: 0xf1c40f,
+          description:
+            "You Claimed your Daily reward.\n`250₪` has been added to your account."
         }
       });
     } else {
@@ -55,9 +86,7 @@ module.exports = {
           color: 0xf94343,
           description:
             "You already claimed your reward.\nCheck back " +
-            moment()
-              .endOf("day")
-              .fromNow()
+            moment(nd).fromNow()
         }
       });
     }

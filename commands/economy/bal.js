@@ -26,7 +26,7 @@ module.exports = {
       userData[sender.id].money = 1000;
     }
     if (!userData[sender.id].lastDaily) {
-      userData[sender.id].lastDaily = "Not Yet Claimed";
+      userData[sender.id].lastDaily = "";
     }
 
     // Save Changes
