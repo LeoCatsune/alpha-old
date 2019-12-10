@@ -1,6 +1,6 @@
 {
   "name": "alpha-bot-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Multipurpose Discord.js Bot.",
   "main": "index.js",
   "dependencies": {
@@ -14,7 +14,6 @@
     "opusscript": "0.0.7",
     "solenolyrics": "^5.0.0",
     "trello": "^0.9.1",
-    "ytdl-core": "^0.29.5"
   },
   "devDependencies": {},
   "scripts": {
