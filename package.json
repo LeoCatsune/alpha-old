@@ -13,7 +13,7 @@
     "node-fetch": "^2.6.0",
     "opusscript": "0.0.7",
     "solenolyrics": "^5.0.0",
-    "trello": "^0.9.1",
+    "trello": "^0.9.1"
   },
   "devDependencies": {},
   "scripts": {
