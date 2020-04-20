@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js");
 const { redlight } = require("../../colours.json");
-const { m } = require("../../botconfig.json");
+const { m, logchannel } = require("../../botconfig.json");
 
 module.exports = {
   config: {
@@ -9,7 +9,7 @@ module.exports = {
     usage: "<user> (reason)",
     category: "moderation",
     accessibleby: m.mod,
-    aliases: ["m", "nospeak"]
+    aliases: ["m", "nospeak"],
   },
   run: async (bot, message, args) => {
     // check if the command caller has permission to use the command
@@ -31,13 +31,13 @@ module.exports = {
     if (!reason) reason = "No reason given";
 
     //define mute role and if the mute role doesnt exist then create one
-    let muterole = message.guild.roles.find(r => r.name === "Muted");
+    let muterole = message.guild.roles.find((r) => r.name === "Muted");
     if (!muterole) {
       try {
         muterole = await message.guild.createRole({
           name: "Muted",
           color: "#514f48",
-          permissions: []
+          permissions: [],
         });
         message.guild.channels.forEach(async (channel, id) => {
           await channel.overwritePermissions(muterole, {
@@ -45,7 +45,7 @@ module.exports = {
             ADD_REACTIONS: false,
             SEND_TTS_MESSAGES: false,
             ATTACH_FILES: false,
-            SPEAK: false
+            SPEAK: false,
           });
         });
       } catch (e) {
@@ -60,7 +60,7 @@ module.exports = {
         .send(
           `You have been muted in **${message.guild.name}** for: **${reason}**`
         )
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
       message.channel.send(`${mutee.user.username} was successfully muted.`);
     });
 
@@ -74,7 +74,7 @@ module.exports = {
       .addField("Reason:", reason)
       .addField("Date:", message.createdAt.toLocaleString());
 
-    let sChannel = message.guild.channels.find(c => c.name === "bot-logs");
+    let sChannel = message.guild.channels.find((c) => c.name === logchannel);
     sChannel.send(embed);
-  }
+  },
 };

@@ -1,21 +1,18 @@
-const { prefix } = require("../../botconfig.json");
-const report = require("../../tools/report.js");
+const { prefix, automod } = require("../../botconfig.json");
+const report = require("../../tools/message.js");
 const lp = require("leo-profanity");
 
 module.exports = async (bot, message) => {
   if (message.author.bot || message.channel.type === "dm") return;
-	
+
   if (
     lp.check(message.content) ||
-    lp.check(message.content.replace(/\s/g, ""))
+    (lp.check(message.content.replace(/\s/g, "")) && automod.enabled)
   ) {
-    report.karen(bot, message);
-  }  
+    report.automod(bot, message, automod.delete);
+  }
 
-  let args = message.content
-    .slice(prefix.length)
-    .trim()
-    .split(/ +/g);
+  let args = message.content.slice(prefix.length).trim().split(/ +/g);
   let cmd = args.shift().toLowerCase();
 
   if (!message.content.startsWith(prefix)) return;

@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js");
 const { redlight } = require("../../colours.json");
-const { m } = require("../../botconfig.json");
+const { m, logchannel } = require("../../botconfig.json");
 
 module.exports = {
   config: {
@@ -9,7 +9,7 @@ module.exports = {
     usage: "<user> (reason)",
     category: "moderation",
     accessibleby: m.mod,
-    aliases: ["unm"]
+    aliases: ["unm"],
   },
   run: async (bot, message, args) => {
     // check if the command caller has permission to use the command
@@ -31,7 +31,7 @@ module.exports = {
     if (!reason) reason = "No reason given";
 
     //define mute role and if the mute role doesnt exist then send a message
-    let muterole = message.guild.roles.find(r => r.name === "Muted");
+    let muterole = message.guild.roles.find((r) => r.name === "Muted");
     if (!muterole)
       return message.channel.send("There is no mute role to remove!");
 
@@ -42,7 +42,7 @@ module.exports = {
         .send(
           `You have been unmuted in **${message.guild.name}** for:**${reason}**`
         )
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
       message.channel.send(`${mutee.user.username} was unmuted!`);
     });
 
@@ -56,7 +56,7 @@ module.exports = {
       .addField("Reason:", reason)
       .addField("Date:", message.createdAt.toLocaleString());
 
-    let sChannel = message.guild.channels.find(c => c.name === "bot-logs");
+    let sChannel = message.guild.channels.find((c) => c.name === logchannel);
     sChannel.send(embed);
-  }
+  },
 };

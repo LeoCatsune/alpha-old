@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js");
 const { redlight } = require("../../colours.json");
-const { m } = require("../../botconfig.json");
+const { m, logchannel } = require("../../botconfig.json");
 
 module.exports = {
   config: {
@@ -9,7 +9,7 @@ module.exports = {
     usage: "<user> (reason)",
     category: "moderation",
     accessibleby: m.admin,
-    aliases: ["ub", "unbanish"]
+    aliases: ["ub", "unbanish"],
   },
   run: async (bot, message, args) => {
     if (!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"]))
@@ -53,7 +53,7 @@ module.exports = {
       .addField("Reason:", reason)
       .addField("Date:", message.createdAt.toLocaleString());
 
-    let sChannel = message.guild.channels.find(c => c.name === "bot-logs");
+    let sChannel = message.guild.channels.find((c) => c.name === logchannel);
     sChannel.send(embed);
-  }
+  },
 };

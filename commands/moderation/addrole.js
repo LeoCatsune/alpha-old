@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js");
 const { redlight } = require("../../colours.json");
-const { m } = require("../../botconfig.json");
+const { m, logchannel } = require("../../botconfig.json");
 
 module.exports = {
   config: {
@@ -9,7 +9,7 @@ module.exports = {
     usage: "<user> <role>",
     category: "moderation",
     accessibleby: m.mod,
-    aliases: ["ar", "roleadd"]
+    aliases: ["ar", "roleadd"],
   },
   run: async (bot, message, args) => {
     if (!message.member.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"]))
@@ -19,15 +19,15 @@ module.exports = {
 
     let rMember =
       message.mentions.members.first() ||
-      message.guild.members.find(m => m.user.tag === args[0]) ||
+      message.guild.members.find((m) => m.user.tag === args[0]) ||
       message.guild.members.get(args[0]);
     if (!rMember)
       return message.channel.send("Please provide a user to add a role too.");
     let role =
       message.guild.roles.find(
-        r => r.name.toLowerCase() == args[1].toLowerCase()
+        (r) => r.name.toLowerCase() == args[1].toLowerCase()
       ) ||
-      message.guild.roles.find(r => r.id == args[1]) ||
+      message.guild.roles.find((r) => r.id == args[1]) ||
       message.mentions.roles.first();
     if (!role)
       return message.channel.send("Please provide a role to add to said user.");
@@ -44,7 +44,7 @@ module.exports = {
         `${rMember.displayName}, already has the role!`
       );
     } else {
-      await rMember.addRole(role.id).catch(e => console.log(e.message));
+      await rMember.addRole(role.id).catch((e) => console.log(e.message));
       message.channel.send(
         `The role, ${role.name}, has been added to ${rMember.displayName}.`
       );
@@ -59,7 +59,7 @@ module.exports = {
       .addField("Reason:", reason)
       .addField("Date:", message.createdAt.toLocaleString());
 
-    let sChannel = message.guild.channels.find(c => c.name === "bot-logs");
+    let sChannel = message.guild.channels.find((c) => c.name === logchannel);
     sChannel.send(embed);
-  }
+  },
 };

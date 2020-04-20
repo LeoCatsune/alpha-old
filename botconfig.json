@@ -1,5 +1,5 @@
 {
-  "currencyname":"g",
+  "currencyname": "g",
   "prefix": ";",
   "m": {
     "basic": "Everyone",
@@ -8,5 +8,10 @@
     "owner": "Bot Owner"
   },
   "ownerid": "YOUR_ID_HERE",
-  "token": "YOUR_TOKEN_HERE"
+  "token": "YOUR_TOKEN_HERE",
+  "logchannel": "bot-logs",
+  "automod": {
+    "enabled": true,
+    "delete": false
+  }
 }

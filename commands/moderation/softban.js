@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js");
 const { redlight } = require("../../colours.json");
-const { m } = require("../../botconfig.json");
+const { m, logchannel } = require("../../botconfig.json");
 
 module.exports = {
   config: {
@@ -9,7 +9,7 @@ module.exports = {
     usage: "<user> (reason)",
     category: "moderation",
     accessibleby: m.admin,
-    aliases: ["sb", "sbanish", "sremove"]
+    aliases: ["sb", "sbanish", "sremove"],
   },
   run: async (bot, message, args) => {
     if (!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"]))
@@ -36,11 +36,11 @@ module.exports = {
       )
       .then(() => message.guild.ban(banMember, { days: 1, reason: reason }))
       .then(() => message.guild.unban(banMember.id, { reason: "Softban" }))
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     message.channel
       .send(`**${banMember.user.tag}** has been banned`)
-      .then(m => m.delete(5000));
+      .then((m) => m.delete(5000));
 
     let embed = new RichEmbed()
       .setColor(redlight)
@@ -51,7 +51,7 @@ module.exports = {
       .addField("Reason:", reason)
       .addField("Date:", message.createdAt.toLocaleString());
 
-    let sChannel = message.guild.channels.find(c => c.name === "bot-logs");
+    let sChannel = message.guild.channels.find((c) => c.name === logchannel);
     sChannel.send(embed);
-  }
+  },
 };

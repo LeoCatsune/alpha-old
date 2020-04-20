@@ -1,6 +1,6 @@
 const { RichEmbed } = require("discord.js");
 const { redlight } = require("../../colours.json");
-const { m } = require("../../botconfig.json");
+const { m, logchannel } = require("../../botconfig.json");
 
 module.exports = {
   config: {
@@ -9,7 +9,7 @@ module.exports = {
     usage: "<user> (reason)",
     category: "moderation",
     accessibleby: m.mod,
-    aliases: ["k"]
+    aliases: ["k"],
   },
   run: async (bot, message, args) => {
     if (!message.member.hasPermission(["KICK_MEMBERS", "ADMINISTRATOR"]))
@@ -33,11 +33,11 @@ module.exports = {
         `You have been kicked from **${message.guild.name}** for: **${reason}**`
       )
       .then(() => kickMember.kick())
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     message.channel
       .send(`**${kickMember.user.tag}** has been kicked`)
-      .then(m => m.delete(5000));
+      .then((m) => m.delete(5000));
 
     let embed = new RichEmbed()
       .setColor(redlight)
@@ -48,7 +48,7 @@ module.exports = {
       .addField("Reason:", reason)
       .addField("Date:", message.createdAt.toLocaleString());
 
-    let sChannel = message.guild.channels.find(c => c.name === "bot-logs");
+    let sChannel = message.guild.channels.find((c) => c.name === logchannel);
     sChannel.send(embed);
-  }
+  },
 };
