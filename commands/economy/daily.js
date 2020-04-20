@@ -1,7 +1,7 @@
 const fs = require("fs");
 const moment = require("moment");
 const { RichEmbed } = require("discord.js");
-const { m } = require("../../botconfig.json");
+const { m, currencyname } = require("../../botconfig.json");
 
 module.exports = {
   config: {
@@ -47,7 +47,7 @@ module.exports = {
           title: "Bank",
           color: 0xf1c40f,
           description:
-            "You Claimed your **first** Daily reward.\n`500₪` has been added to your account."
+            `You Claimed your **first** Daily reward.\n500${currencyname} has been added to your account.`
         }
       });
       // Save Changes
@@ -76,7 +76,7 @@ module.exports = {
           title: "Bank",
           color: 0xf1c40f,
           description:
-            "You Claimed your Daily reward.\n`250₪` has been added to your account."
+            `You Claimed your Daily reward.\n250${currencyname} has been added to your account.`
         }
       });
     } else {

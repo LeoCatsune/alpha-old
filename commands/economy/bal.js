@@ -1,12 +1,12 @@
 const fs = require("fs");
 const moment = require("moment");
 const { RichEmbed } = require("discord.js");
-const { m } = require("../../botconfig.json");
+const { m, currencyname } = require("../../botconfig.json");
 
 module.exports = {
   config: {
     name: "bal",
-    aliases: ["balance", "bank", "bankbal"],
+    aliases: ["balance", "bank"],
     usage: "",
     category: "economy",
     description: "Gets your current bot balance [Experimental]",
@@ -46,7 +46,7 @@ module.exports = {
           },
           {
             name: "Balance",
-            value: userData[sender.id].money + "₪",
+            value: userData[sender.id].money + currencyname,
             inline: true
           }
         ]
