@@ -23,8 +23,9 @@ Don't forget to replace the default settings in `botconfig.json` or else the bot
 
 You can contact me through any of the below methods.
 
-Discord: Leopardnose#0157
-Delta Community: [Join](https://discord.gg/nAsWCfn)
+Discord: ProtoDelta#0157
+
+Server: [Join](https://discord.gg/nAsWCfn)
 
 # See Something Wrong?
 
